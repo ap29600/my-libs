@@ -90,7 +90,7 @@ string_view sv_split_escaped(string_view *sv, string_view delimiters) {
   return result;
 }
 
-string_view sv_slurp_stream(FILE *stream) {
+string_view sv_from_stream(FILE *stream) {
   char*data = NULL;
   size_t len = 0;
   size_t capacity = 0;
