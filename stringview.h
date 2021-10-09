@@ -16,7 +16,7 @@ typedef struct {
 
 #define SV_FMT "%.*s"
 #define SV_ARG(sv) (int)(sv).len, (sv).data
-#define SV(T) ((string_view) {.data=(T), .len=strlen(T)})
+#define SV(T) ((string_view) { .len=strlen(T), .data=(T) })
 static inline size_t min(size_t a, size_t b) { return a < b ? a : b; }
 
 /// construct stringviews
