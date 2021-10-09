@@ -25,8 +25,8 @@ string_view sv_split(string_view *sv, string_view delimiters) {
         .data = sv->data,
         .len = i,
       };
-      sv->len -= i;
-      sv->data += i;
+      sv->len -= i + 1;
+      sv->data += i + 1;
       return result;
     }
   }
@@ -43,8 +43,8 @@ string_view sv_split_if(string_view *sv, int pred(int)) {
         .data = sv->data,
         .len = i,
       };
-      sv->len -= i;
-      sv->data += i;
+      sv->len -= i + 1;
+      sv->data += i + 1;
       return result;
     }
   }
@@ -66,8 +66,8 @@ string_view sv_split_escaped(string_view *sv, string_view delimiters) {
             .data = sv->data,
             .len = i,
           };
-          sv->len -= i;
-          sv->data += i;
+          sv->len -= i + 1;
+          sv->data += i + 1;
           return result;
         }
         if (sv->data[i] == '"') in_quote = 1;
