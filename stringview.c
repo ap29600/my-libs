@@ -94,28 +94,15 @@ string_view sv_from_stream(FILE *stream) {
   char*data = NULL;
   size_t len = 0;
   size_t capacity = 0;
-  if (isatty(fileno(stream))) {
-    char c;
-    while (EOF != (c = getc(stream))) {
+  char c;
+  while (EOF != (c = getc(stream))) {
       if (capacity < len + 1) {
-        capacity = (capacity == 0) ? 1024 : capacity * 2;
-        data = (char *)realloc(data, capacity);
-        if (!data)
-          return (string_view){0};
+          capacity = (capacity == 0) ? 1024 : capacity * 2;
+          data = (char *)realloc(data, capacity);
+          if (!data)
+              return (string_view){0};
       }
       data[len++] = c;
-    }
-  } else {
-    if (fseek(stream, 0, SEEK_END) < 0)
-      printf("Error: %s\n", strerror(ferror(stream)));
-
-    len = ftell(stream);
-
-    if (fseek(stream, 0, SEEK_SET) < 0)
-      printf("Error: %s\n", strerror(ferror(stream)));
-
-    data = (char *)malloc(len);
-    fread(data, len, 1, stream);
   }
   return (string_view) {.data = data, .len = len};
 }
